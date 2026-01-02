@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy New Year, Ate ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    
+    :root{
+      --bg:#e02f76;
+      --panel:#f4afca;
+      --accent:#ffd76d;
+      --accent-2:#ff7fbf;
+      --text:#f6f7ff;
+      --soft:#c4c8ff;
+      --glow:0 0 18px rgba(255,215,109,0.7), 0 0 40px rgba(255,215,109,0.35);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:radial-gradient(1200px 700px at 20% 10%, #1b2150 0%, var(--bg) 60%) fixed; color:var(--text); font-family:Nunito, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; min-height:100%;}
+    a{text-decoration:none;color:inherit}
+    .sparkle-cursor{position:fixed;pointer-events:none;inset:0}
+    header{text-align:center; padding:64px 20px 32px;}
+    .title{font-family:Pacifico, cursive; font-size: clamp(36px, 6vw, 72px); color:var(--accent); text-shadow: var(--glow);}
+    .subtitle{margin-top:10px; color:var(--soft); font-size: clamp(14px, 2.8vw, 18px);}
+    .ribbon{margin:24px auto 0; display:inline-block; background:linear-gradient(135deg, rgba(255,215,109,0.15), rgba(255,127,191,0.15)); border:1px solid rgba(255,215,109,0.35); padding:10px 16px; border-radius:999px; backdrop-filter:blur(6px); font-weight:700; color:#ffe9a9;}
+    main{padding:10px 16px 80px; max-width:980px; margin:0 auto; position:relative;}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.14); border-radius:16px; padding:20px; margin:16px 0; box-shadow:0 20px 60px rgba(0,0,0,0.35);}
+    .card h2{margin:4px 0 10px; font-size: clamp(22px, 4vw, 28px); color:#ffe6a2;}
+    .intro{display:grid; gap:16px; align-items:center; grid-template-columns: 1.1fr 0.9fr;}
+    @media (max-width:820px){ .intro{grid-template-columns: 1fr}}
+    .pill-row{display:flex; gap:10px; flex-wrap:wrap}
+    .pill{background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14); padding:8px 12px; border-radius:999px; color:#e9ebff; font-size:14px;}
+    .btns{display:flex; gap:12px; flex-wrap:wrap; margin-top:6px}
+    .btn{background:linear-gradient(135deg, #ff9fd1 0%, #ffd76d 100%); color:#312224; border:none; border-radius:12px; padding:10px 14px; font-weight:800; cursor:pointer; box-shadow:0 6px 20px rgba(255,127,191,0.35), 0 2px 10px rgba(255,215,109,0.25); transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;}
+    .btn:hover{transform:translateY(-2px) scale(1.02); filter:brightness(1.05)}
+    .btn:active{transform:translateY(0) scale(0.98)}
+    .ghost{background:transparent; border:1px dashed rgba(255,215,109,0.6); color:#ffe9a9;}
+    .hero-emoji{font-size: clamp(40px, 8vw, 90px);}
+    .quote{border-left:3px solid rgba(255,215,109,0.5); padding-left:12px; color:#fef9e8; font-style:italic}
+    .gallery{display:grid; gap:10px; grid-template-columns: repeat(4, 1fr);}
+    @media (max-width:820px){ .gallery{grid-template-columns: repeat(2, 1fr)}}
+    @media (max-width:480px){ .gallery{grid-template-columns: 1fr}}
+    .photo{position:relative; overflow:hidden; border-radius:12px; aspect-ratio: 4/3; border:1px solid rgba(255,255,255,0.15); background:#111; cursor:pointer;}
+    .photo img{width:100%; height:100%; object-fit:cover; display:block;}
+    .caption{position:absolute; left:8px; bottom:8px; background:rgba(0,0,0,0.45); color:#fff; padding:6px 10px; border-radius:999px; font-size:12px;}
+    .footer-note{color:#d6d9ff; font-size:14px; text-align:center}
+    .heart{position:fixed; font-size:14px; pointer-events:none; z-index: 9; animation: float 4.8s ease-in forwards;}
+    @keyframes float{0%{transform:translateY(0) scale(0.9); opacity:0}10%{opacity:1}100%{transform:translateY(-140px) scale(1.6); opacity:0}}
+    .modal-backdrop{position:fixed; inset:0; background:rgba(10,12,26,0.75); backdrop-filter: blur(6px); display:none; align-items:center; justify-content:center; z-index: 20;}
+    .modal{width:min(760px, 92vw); background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)); border:1px solid rgba(255,255,255,0.18); border-radius:16px; padding:20px;}
+    .modal h3{margin:0 0 6px; font-size: clamp(20px, 4vw, 26px); color:#ffe6a2}
+    .modal p{color:#f6f7ff}
+    .modal .close{margin-top:10px}
+    #confetti{position:fixed; inset:0; z-index: 5; pointer-events:none}
+    .music-toggle{position:fixed; right:14px; bottom:14px; z-index:30}
+    .tiny{font-size:12px; opacity:0.8}
+    .bottom-buttons {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  z-index: 30;
+}
+.bottom-buttons .btn {
+  width: fit-content;
+}
+.bottom-buttons .tiny {
+  font-size: 12px;
+  opacity: 0.8;
+  text-align: right;
+}
+
+.cat { position: fixed; width: 120px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.5); transition: transform .3s ease, opacity .3s ease; } 
+
+.intro {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 20px;
+  align-items: center;
+}
+.image-side {
+  text-align: center;
+}
+.hero-emoji {
+  font-size: clamp(40px, 8vw, 90px);
+  margin-bottom: 12px;
+}
+.side-image {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+@media (max-width: 820px) {
+  .intro {
+    grid-template-columns: 1fr;
+  }
+  .image-side {
+    margin-top: 20px;
+  }
+}
+
+</style>
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div class="sparkle-cursor"></div>
+
+  <header>
+    <div class="title">Happy New Year, Ate MIAOW✨</div>
+    <div class="subtitle">Thank you for guiding us, holding the community together, and making it feel like home.</div>
+    <div class="ribbon">From your COMMEOWNITY fam(IPKP) — grateful, inspired, and cheering you on</div>
+  </header>
+
+  <main>
+    <section class="card intro">
+      <div>
+        <h2>You made space for kindness</h2>
+        <p class="quote">“In a world that rushes, you chose to care. Because of you, strangers became friends.”</p>
+        <div class="pill-row">
+          <span class="pill">Guiding light</span>
+          <span class="pill">Safe & sweet community</span>
+          <span class="pill">New friendships</span>
+          <span class="pill">Warm leadership</span>
+        </div>
+        <div class="btns">
+          <button class="btn" id="openLetter">Open our thank‑you note 💌</button>
+          <button class="btn ghost" id="burst">Celebrate with confetti 🎉</button>
+          <button class="btn ghost" id="hearts">Float some hearts💕 </button>
+          <button class="btn ghost" id="catBtn">Cats 🐱</button>
+                  </div>
+      </div>
+      <div class="hero-emoji">🎆</div>
+    
+    </section>
+<!-- bg:#0f1226; panel:#1a1f3c; -->
+
+    <section class="card">
+      <h2>Little moments we loved</h2>
+      <div class="tiny">Click every Picture for the surprises</div>
+      <div class="gallery">
+        <!-- Each photo has a data-message for the modal -->
+        <figure class="photo" data-message="My labs, 
+        You know what, you absolutely crushed it this year. Running this Commeownity and somehow keeping it alive, organized, and not on fire is honestly impressive. This server didn’t just survive this year, it thrived, and that’s 100% because of you. You somehow manage to be the owner, the problem-solver, the hype person, and the chaotic best friend all at once. What you’ve built here? WOW who knew we’ll be reaching 1k kutings soon. You’ve built a space where people actually want to hang out, laugh, overshare at 3am, and feel comfortable being themselves — which is no small feat. The vibes? Immaculate. The community? Top-tier. The owner? Unmatched. And beyond the server stuff, you’re just an incredible best friend. Laging nandito, laging supportive, and always making things better (and funnier tho mas funny naman ako minsan). This year would’ve been way more boring and way more stressful without you, and I’m genuinely grateful for everything you do — even if I don’t say it enough (lol lagi ko naman sinasabi) So yeah, thank you for being amazing, for carrying this server on your back, and for being you. We’re lucky to have you, and I’m lucky to call you my best friend. Now don’t let this go to your head… but also you deserve the hype and love.--MAXMAX 💛">
+          <img src="MADMAX.png" alt="Laughing together" />
+          <figcaption class="caption">MIAOW & MAXMAX</figcaption>
+        </figure>
+
+        <figure class="photo" data-message="Hi Miaow! Thank you for welcoming me into a community filled with laughter, and  friendship. This has been one of my escapes from the darkest side of the real world. I appreciate you for trusting me to be one of the guys that keeps this community as healthy and inclusive as possible. I wish 2026 will bring us more growth, friendship, and fun. Happy New Year!!!--ALDEN😺">
+          <img src="ALDEN1.png" alt="Learning" />
+          <figcaption class="caption">MIAOW & ALDEN</figcaption>
+        </figure>
+
+        <figure class="photo" data-message="Thanks for everything that you've done for the commeownity and for me as well. You're the best bossing, can't imagine playing these games without you. Love you!--WIS🤭✨">
+          <img src="wis.png" alt="Stars" />
+          <figcaption class="caption">MIAOW & WIS</figcaption>
+        </figure>
+
+        <figure class="photo" data-message="Happy New Year 
+        Wishing you a beautiful year ahead—full of growth, happiness, and good health. You make things feel a little brighter Miaow, and I hope this year gives you all the joy you deserve.💕  -Vessel 💛">
+          <img src="VESSEL.png" alt="Laughing together" />
+          <figcaption class="caption">MIAOW & VESSEL</figcaption>
+        </figure>
+
+        <figure class="photo" data-message="Happy New Year, Ate Miaow! 🎆
+        I wish you all the best this year—you really deserve it all ate. I hope this year brings you happiness, good health, and lots of good moments.
+        Thank you for always being nice and supportive. I hope you reach your goals and get everything you’ve been working hard for.
+        Wishing you a fun, peaceful, and happy year ahead!✨-KAIRU BEST BOI. 🌙">
+          <img src="KAI1.png" alt="Cozy night" />
+          <figcaption class="caption">MIAOW & KAIRU</figcaption>
+        </figure>
+
+        <figure class="photo" data-message="Hi po, ate. Thank you for always being there for me, even from afar. Your advice, kindness, and constant support mean so much to me. 
+        I’m truly thankful for all the memories we’ve created and the bond we’ve built through Roblox and Discord, as well as the moments spent laughing during your livestreams especially when you’d clap while laughing. 
+        Those moments always made my days brighter, and they’re something I’ll always treasure. I’m also deeply grateful for how you made me feel like I have a real sister. Since I don’t have one in real life, having you means more to me than you know. You make me feel understood, encouraged, and never alone, 
+        and I’m so thankful to have you as my ate.As this new year begins, I wish you a very Happy New Year filled with happiness, good health, success, peace, and endless possibilities. May this year bring you new opportunities, beautiful moments, and everything your heart has been hoping for because you truly deserve all of that. I love you so much, ate Miaow.-- BUNSOY 🤗">
+          <img src="SEIL1.png" alt="Support" />
+          <figcaption class="caption">MIAOW & SEIL</figcaption>
+        </figure>
+
+        <figure class="photo" data-message="Hiii Ate Miaow~! Thank you for being part of my 2025. You and the commeownity became my safe space. I'm very thankful na nakilala ko kayooo, y'all helped me to appreciate and enjoy life more. I only met you around November in your tiktok live, but that little time made a strong impact on my 2025. I love your vibe and personality, especially your laughs and kindness. 
+        Wishing you more blessings and success in your life. Also hoping din na you will be happy and healthy throughout this 2026. I love you so much Ateee, if you ever need comfort and a space to share your thoughts and problems for your peace of mind, just know na we're here for youuu. Hoping na magkabonding din tayong lahat irl, can't wait to see you all soooon.😺❤ -CHES 🎉">
+          <img src="ches1.png" alt="Celebration" />
+          <figcaption class="caption">MIAOW & CHES</figcaption>
+        </figure>
+
+        <figure class="photo" data-message="Happy new year Ninang Miaow 
+        Wishing you a peaceful ,joyful, and successful 
+        May this year bring good health ,happiness and new opportunities into your life ninang miaow.
+        -kuyaLoy🌸">
+          <img src="loyloy.png" alt="Kindness" />
+          <figcaption class="caption">MIAOW & LOY</figcaption>
+        </figure>
+
+        <figure class="photo" data-message="Happy new year wowie dora more blessing to  come! Wala nako ma say ganto ba talaga pag yearner! eme, but thank you kasi na kasali ako sa commeownity marami akong na kilala friend and enemies 🤭🤭ill hope sana dumami pa tayo sa commeownity. We love you wowie dora--IPKP KUPSS  🎮">
+          <img src="kups.jpg" alt="Game night" />
+          <figcaption class="caption">MIAOW & KUPS</figcaption>
+        </figure>
+
+        <figure class="photo" data-message="Hello, Madam Pusa! Happy New Year! I just want to say that I'm so happy your stream in tiktok popped  up on my FYP. 
+        Because of you, I've experienced so many things i never thought I would. I'm forever thankful  to have a freind like you po. Wishing you a great journey this year! Thank you for being such a good friend and having a healthy community i feel welcome nung unang dating ko HAHAHA anyways; I feel so lucky  because, with you, I don't feel left out anymore.  Always remember  that you deserve the same kindness you give to others. 
+        Don't ever doubt your worth, because you've changed my world  just by being in it.--TATANGPOGI ✨">
+          <img src="tatangxate.png" alt="Stars" />
+          <figcaption class="caption">MIAOW & TATANG</figcaption>
+        </figure>
+
+        <figure class="photo" data-message="HI Ate Miaow! I just wanna say na i am glad that I have met someone like you last year and I am glad and proud to have you po as an Ate and as a friend. Thank you po for everything you know what I mean ate hehe. I hope life favors you from here on out with so many blessings with good and happy things. Cheers for another year ate, Warawiwao!🤫--VRISHA">
+          <img src="vri.png" alt="Stars" />
+          <figcaption class="caption">MIAOW & VRI</figcaption>
+        </figure>
+
+        <figure class="photo" data-message="hai ate miaw ! 🤍
+        we're happy to spend new years with the commeownity ! 😺 we are thankful for all the laughter, joy, and happiness you guys bring 🤍 im happy that we met someone like u gaizzz! we appreciate yung mga pa-server lucks & everything 🤍
+        we're also thankful for those people we met here in this server. this server makes us feel like we belong, no one makes us feel like we're outsiders.
+        thank u for having this server, we wouldn't meet our special someone(she's talking bout me wuwi:CatHappy: )if it wasnt for this hehehe 🤧. we really appreciates everything and everyone specially ate Miaow.
+        hapi new years ! 🎉
+        --Venzi and Roui ✨">
+          <img src="roui.png" alt="Stars" />
+          <figcaption class="caption">MIAOW & ROUI💕VENZI</figcaption>
+        </figure>
+
+        <figure class="photo" data-message="Thank you ate miaow for the heartwarming welcome, lalo na nung unang sali ko dito sa commeownity even though we just meet in a short period of time, I'm so glad that I meet you po and I'm always look up to you lalo na sa kung pa'no ka mag stream. I wish for your healthy living and successful to your journey yun lang po THANK YOU SO MUCH AND HAPPY NEW YEAR ONCE AGAIN!!!--DITTO ✨">
+          <img src="D2.png" alt="Stars" />
+          <figcaption class="caption">MIAOW & DITTO</figcaption>
+        </figure>
+
+        <figure class="photo" data-message="Thank you ate miaow for the heartwarming welcome, lalo na nung unang sali ko dito sa commeownity even though we just meet in a short period of time, I'm so glad that I meet you po and I'm always look up to you lalo na sa kung pa'no ka mag stream. I wish for your healthy living and successful to your journey yun lang po THANK YOU SO MUCH AND HAPPY NEW YEAR ONCE AGAIN!!!--DITTO ✨">
+          <img src="NILE.png" alt="Stars" />
+          <figcaption class="caption">MIAOW & NILE</figcaption>
+        </figure>
+
+        <figure class="photo" data-message="we wish you a merry christmas and a  happy new year.😝--RIRI">
+          <img src="riri.png" alt="Stars" />
+          <figcaption class="caption">MIAOW & RIRI</figcaption>
+        </figure>
+        
+        <figure class="photo" data-message="Miaow, Some people enter a year and leave a quiet mark on it—
+        you are one of those.
+        Meeting you and the community in 2025 is something I’ll always be thankful for,
+        a small moment that turned into a warm memory.
+        May the days ahead treat you softly,
+        and may you always find light wherever you go.--ADI 🤍✨">
+          <img src="adi.png" alt="Stars" />
+          <figcaption class="caption">MIAOW & ADI</figcaption>
+        </figure>
+
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Wishes for the year ahead</h2>
+      <ul>
+        <li>More coffee, more matcha, more joy, more rest, more silly laughter with palakpak</li>
+        <li>New friendships that feel easy and safe</li>
+        <li>Wins to celebrate together (big and tiny)</li>
+        <li>Moments that remind us we’re not alone</li>
+      </ul>
+      <p class="footer-note">From all of us — thank you for leading with heart. We’re with you, all year. More years to come</p>
+    </section>
+    <div style="text-align:center; margin-top:40px;"> <a href="fun.html" class="btn">Next ➡️</a> </div>
+  </main>
+
+  <!-- Thank-you letter modal -->
+  <div class="modal-backdrop" id="backdrop">
+    <div class="modal">
+      <h3>Dear Ate Miaow,</h3>
+      <p>Thank you for guiding us with warmth and patience. You built a corner of the internet that truly feels like home — where kindness is the rule and everyone belongs. Because of you, we found friends, courage, and reasons to show up. You turned “commeownity” into care.🥰</p>
+      <p>We’re always so thankful to you for building such a strong and loving community. A place where everyone is kind, welcoming, and supportive — just like you. You’re really the sunshine of this community. You bring joy, warmth, and positivity, and because of you, this space feels safe and happy for everyone. 💛</p>
+      <p>Even when we’re makulit, you never leave us behind. Kahit super busy ka, you still find time for us. Kahit may sakit ka na at halos wala nang boses, you still go live just to talk to us — just to check on us. That alone means more than you know, and we’re really, really thankful for that.💕</p>
+      <p>We’re also so grateful to TikTok for letting you pop up on our FYP — because that’s how we found you. And because of that, we met someone with a beautiful appearance, a beautiful character, and a beautiful mind. Lahat beautiful — ikaw lang ‘yun, Ate.😝</p>
+      <p>This New Year, we wish you gentle days, bright nights, and a thousand reminders that your heart changed ours. We’re grateful for you — and excited for all the memories ahead.</p>
+      <p>With love, your IPKP family 💛</p>
+      <button class="btn close" id="closeLetter">Close 💛</button>
+    </div>
+  </div>
+
+  <!-- Photo message modal -->
+  <div class="modal-backdrop" id="photoBackdrop">
+    <div class="modal">
+      <h3>💌 A little note</h3>
+      <p id="photoMessage"></p>
+      <button class="btn close" id="closePhoto">Close ✨</button>
+    </div>
+  </div>
+  
+  <!-- Music control -->
+  <div class="bottom-buttons">
+  <button class="btn" id="musicBtn">Play music 🎶</button>
+  <div class="tiny">Tip: enable sound to hear gentle background music</div>
+</div>
+  <audio id="bgm" src="Paramore - The Only Exception (Audio) - YOUMUSIC.mp3" loop preload="none"></audio>
+
+  
+
+  <script>
+    const qs = s => document.querySelector(s);
+
+    // Thank-you letter modal
+    const backdrop = qs('#backdrop');
+    qs('#openLetter').addEventListener('click', () => backdrop.style.display = 'flex');
+    qs('#closeLetter').addEventListener('click', () => backdrop.style.display = 'none');
+    backdrop.addEventListener('click', e => { if (e.target === backdrop) backdrop.style.display = 'none'; });
+
+    // Photo modal
+    const photoBackdrop = qs('#photoBackdrop');
+    const photoMessage = qs('#photoMessage');
+    qs('#closePhoto').addEventListener('click', () => photoBackdrop.style.display = 'none');
+    photoBackdrop.addEventListener('click', e => { if (e.target === photoBackdrop) photoBackdrop.style.display = 'none'; });
+    document.querySelectorAll('.photo').forEach(photo => {
+      photo.addEventListener('click', () => {
+        photoMessage.textContent = photo.dataset.message;
+        photoBackdrop.style.display = 'flex';
+      });
+    });
+
+    //cats
+
+    // Array of cat meme images
+const catImages = [
+      "CUTE.gif",
+      "cute1.gif",
+      "cute2.webp",
+      "cute3.gif",
+    ];
+
+    const spawnCat = (x, y) => {
+      const img = document.createElement('img');
+      img.className = 'cat';
+      img.src = catImages[Math.floor(Math.random() * catImages.length)];
+      img.style.left = x + 'px';
+      img.style.top = y + 'px';
+      document.body.appendChild(img);
+      setTimeout(() => img.remove(), 5000);
+    };
+
+    // CATS BUTTON 🐱
+qs('#catBtn').addEventListener('click', () => {
+  const w = window.innerWidth, h = window.innerHeight;
+  for (let i = 0; i < 8; i++) {
+    spawnCat(
+      Math.random() * (w - 120),
+      Math.random() * (h - 120)
+    );
+  }
+});
+
+// When button is clicked, spawn multiple cats
+document.querySelector('#catBtn').addEventListener('click', () => {
+  const w = window.innerWidth, h = window.innerHeight;
+  for (let i = 0; i < 8; i++) {
+    spawnCat(Math.random() * (w - 120), Math.random() * (h - 120));
+  }
+});
+
+
+    // Hearts
+    const spawnHeart = (x, y) => {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.textContent = ['💖','💗','💞','💕'][Math.floor(Math.random()*4)];
+      h.style.left = x + 'px';
+      h.style.top = y + 'px';
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 5000);
+    };
+    qs('#hearts').addEventListener('click', () => {
+      const w = window.innerWidth, h = window.innerHeight;
+      for (let i=0;i<16;i++) spawnHeart(Math.random()*w, h-20);
+    });
+
+    // Confetti
+    const canvas = qs('#confetti');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+    window.addEventListener('resize', resize); resize();
+    const colors = ['#ffd76d','#ff9fd1','#9fd9ff','#c9ff9f','#fff5c4','#ffc3e6'];
+    function burstConfetti(cx, cy, count=120){
+      for(let i=0;i<count;i++){
+        particles.push({x:cx,y:cy,vx:Math.cos(i)*Math.random()*4,vy:Math.sin(i)*Math.random()*4,size:Math.random()*3+2,life:100,color:colors[Math.floor(Math.random()*colors.length)]});
+      }
+    }
+    qs('#burst').addEventListener('click', () => burstConfetti(window.innerWidth/2, window.innerHeight*0.35, 180));
+    canvas.addEventListener('click', e => burstConfetti(e.clientX, e.clientY, 140));
+    function tick(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for(let i=particles.length-1;i>=0;i--){
+        const p=particles[i];
+        p.x+=p.vx; p.y+=p.vy; p.vy+=0.05; p.life--;
+        ctx.globalAlpha=Math.max(0,p.life/100);
+        ctx.fillStyle=p.color;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill();
+                if(p.life <= 0) particles.splice(i,1);
+      }
+      requestAnimationFrame(tick);
+    }
+    tick();
+
+    // Sparkle cursor
+    const sparkleContainer = document.querySelector('.sparkle-cursor');
+    const makeSparkle = (x,y) => {
+      const s = document.createElement('div');
+      const size = Math.random()*5+4;
+      s.style.position='absolute';
+      s.style.left = x+'px';
+      s.style.top = y+'px';
+      s.style.width=size+'px';
+      s.style.height=size+'px';
+      s.style.borderRadius='50%';
+      s.style.background = ['#ffd76d','#ff9fd1','#ffffff'][Math.floor(Math.random()*3)];
+      s.style.boxShadow='0 0 14px rgba(255,255,255,0.6)';
+      sparkleContainer.appendChild(s);
+      const dx = (Math.random()-0.5)*20, dy = (Math.random()-0.5)*20;
+      s.animate([
+        { transform:`translate(0,0) scale(1)`, opacity:0.9},
+        { transform:`translate(${dx}px, ${dy}px) scale(0)`, opacity:0}
+      ], { duration: 420, easing: 'ease-out' });
+      setTimeout(()=> s.remove(), 460);
+    };
+    window.addEventListener('pointermove', e => {
+      for (let i=0;i<2;i++) makeSparkle(e.clientX, e.clientY);
+    });
+
+    // Music toggle
+    const musicBtn = qs('#musicBtn');
+    const bgm = qs('#bgm');
+    let playing = false;
+    musicBtn.addEventListener('click', async () => {
+      try{
+        if(!playing){
+          await bgm.play();
+          playing = true;
+          musicBtn.textContent = 'Pause music 🎵';
+        }else{
+          bgm.pause();
+          playing = false;
+          musicBtn.textContent = 'Play music 🎶';
+        }
+      }catch(err){ console.log('Music toggle error', err); }
+    });
+
+    // Auto welcome effects
+    window.addEventListener('load', () => {
+      setTimeout(() => burstConfetti(window.innerWidth/2, window.innerHeight*0.35, 120), 600);
+      setTimeout(() => {
+        for (let i=0;i<12;i++){
+          spawnHeart(Math.random()*window.innerWidth, window.innerHeight-20);
+        }
+      }, 1200);
+    });
+  </script>
+</body>
+</html>
